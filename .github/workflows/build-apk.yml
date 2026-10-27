@@ -12,10 +12,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+     - name: Setup Node
+  uses: actions/setup-node@v4
+  with:
+    node-version: '22'  # au lieu de 20
+
+- name: Setup Java
+  uses: actions/setup-java@v5  # au lieu de v4
+  with:
+    java-version: '17'
+    distribution: 'temurin'
 
       - name: Setup Java
         uses: actions/setup-java@v4
