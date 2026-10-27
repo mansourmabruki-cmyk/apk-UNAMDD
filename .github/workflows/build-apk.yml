@@ -1,4 +1,4 @@
-name: Build APK Android
+name: Créer un APK Android
 
 on:
   push:
@@ -6,22 +6,16 @@ on:
   workflow_dispatch:
 
 jobs:
-build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-     - name: Setup Node
-  uses: actions/setup-node@v4
-  with:
-    node-version: '22'  # au lieu de 20
-
-- name: Setup Java
-  uses: actions/setup-java@v5  # au lieu de v4
-  with:
-    java-version: '17'
-    distribution: 'temurin'
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -38,5 +32,4 @@ build:
       - name: Accept Android SDK licenses
         run: yes | sdkmanager --licenses
 
-      - name: Build APK
-        run: cd android && ./gradlew assembleDebug
+      - name: Install d…
