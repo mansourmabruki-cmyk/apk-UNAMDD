@@ -1,15 +1,18 @@
-name: Build Android APK
+name: Build APK Android
+
 on:
   push:
     branches: [ main, master ]
   workflow_dispatch:
-  jobs:
-   build:
+
+jobs:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-     - name: Setup Node
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -17,26 +20,14 @@ on:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
           java-version: '17'
+          distribution: 'temurin'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Add Android platform
-        run: npx cap add android || npx cap sync android
-
-      - name: Sync web assets
-        run: npx cap sync android
-
-      - name: Build debug APK
-        run: cd android && chmod +x gradlew && ./gradlew assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
         with:
-          name: UNAMDD-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          cmdline-tools-version: 11076708
+          packages: 'platform-tools platforms;android-34 build-tools;34.0.0'
+
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
